@@ -142,6 +142,7 @@ function App() {
     <aside className="sidebar">
       <div className="brand"><div className="brand-logo"><LogoMark compact /></div><div className="brand-copy"><h2>FinVora</h2><small>Customer Portal</small></div></div>
       <nav>{navItems.map(([id, label]) => <button key={id} className={`nav-btn ${page === id ? "active" : ""}`} onClick={() => openPage(id)}>{label}</button>)}</nav>
+      <a className="nav-btn external-app-link" href="http://localhost:3000" target="_blank" rel="noreferrer">▣ Operations Console <span aria-hidden="true">↗</span></a>
       <button className="logout" onClick={() => { setLoggedIn(false); showToast("Logged out successfully"); }}>↪ Logout</button>
     </aside>
 

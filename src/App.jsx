@@ -1,4 +1,25 @@
-import { useState } from "react";
+import { useId, useState } from "react";
+
+function LogoMark({ compact = false }) {
+  const gradientId = useId().replace(/:/g, "");
+
+  return (
+    <div className={`logo-mark ${compact ? "compact" : ""}`} aria-label="FinVora logo">
+      <svg viewBox="0 0 72 72" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#6ee7b7" />
+            <stop offset="35%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#101b36" />
+          </linearGradient>
+        </defs>
+        <rect x="3" y="3" width="66" height="66" rx="18" fill={`url(#${gradientId})`} />
+        <path d="M20 19h26v8H28v8h16v8H28v10H20V19z" fill="white" opacity="0.96" />
+        <path d="M38 19l14 34h-9l-2.8-7h-12.4l-2.8 7H16L30 19h8zm-4.5 20h7.2L37 27.8 33.5 39z" fill="white" opacity="0.96" />
+      </svg>
+    </div>
+  );
+}
 
 const navItems = [
   ["dashboard", "⌂ Dashboard"],
@@ -105,7 +126,7 @@ function App() {
   if (!loggedIn) {
     return <div className="login-page">
       <form className="login-card" onSubmit={login}>
-        <div className="logo">FV</div>
+        <LogoMark />
         <h1>FinVora</h1>
         <p>Smart Financial Customer Portal</p>
         <input type="email" placeholder="Email Address" value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -119,7 +140,7 @@ function App() {
 
   return <div className="app">
     <aside className="sidebar">
-      <div className="brand"><div className="brand-logo">FV</div><div className="brand-copy"><h2>FinVora</h2><small>Customer Portal</small></div></div>
+      <div className="brand"><div className="brand-logo"><LogoMark compact /></div><div className="brand-copy"><h2>FinVora</h2><small>Customer Portal</small></div></div>
       <nav>{navItems.map(([id, label]) => <button key={id} className={`nav-btn ${page === id ? "active" : ""}`} onClick={() => openPage(id)}>{label}</button>)}</nav>
       <button className="logout" onClick={() => { setLoggedIn(false); showToast("Logged out successfully"); }}>↪ Logout</button>
     </aside>
